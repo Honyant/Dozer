@@ -605,6 +605,11 @@ class Moderation(Cog):
         """Deafen yourself for a given time period to prevent you from reading or sending messages; useful as a study tool."""
         async with ctx.typing():
             seconds = self.hm_to_seconds(reason)
+
+            if seconds == 0:
+                await ctx.send("You need to specify a duration!")
+                return
+
             reason = self.hm_regex.sub(reason, "") or "No reason provided"
             if await self._deafen(ctx.author, reason, seconds=seconds, self_inflicted=True, actor=ctx.author, orig_channel=ctx.channel):
                 await self.mod_log(ctx.author, "deafened", ctx.author, reason, ctx.channel, discord.Color.red(), global_modlog=False)
