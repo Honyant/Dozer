@@ -1,19 +1,18 @@
 """Provides commands that pull information from First Q&A Form."""
 import discord
-
 import aiohttp
 import asyncio
 
 from bs4 import BeautifulSoup
 
-embed_color = discord.color.blue()
+from ._utils import *
 
 class QA(Cog):
     """QA commands"""
     def __init__(self, bot):
         super().__init__(bot)
 
-    @qa.command()
+    @command()
     @bot_has_permissions(embed_links=True)
     async def qa(self, ctx, question: int):
         """
@@ -25,7 +24,7 @@ class QA(Cog):
 
         answers =  BeautifulSoup(html_data, 'html.parser').get_text()
 
-        start = answers.find('Q' + question + ' ')
+        start = answers.find('Q' + str(question) + ' ')
         a = ""
         if(start > 0):
 
@@ -40,8 +39,8 @@ class QA(Cog):
 
           embed = discord.Embed(
                 title=a[:a.find(" Q: ")],
-                url="https://ftc-qa.firstinspires.org/qa/" + question,
-                color=embed_color)
+                url="https://ftc-qa.firstinspires.org/qa/" + str(question),
+                color=discord.Color.blue())
 
           embed.add_field(name="Question",
                           value=a[a.find(" Q: ")+1:a.find(" A: ")],
