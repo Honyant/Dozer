@@ -153,7 +153,7 @@ class Moderation(Cog):
     
     async def check_talking_showcase(self,msg):
         """Checks for messages sent in #robot-showcase without attachments or embeds and automatically deletes them."""
-        if msg.channel.id == 771188718198456321 and not msg.attachments and not msg.embeds:
+        if msg.channel.id == 771188718198456321 and not msg.attachments and not msg.embeds and not re.search("https?://", msg.content):
             await msg.delete()
 
     """=== context-free backend functions ==="""
