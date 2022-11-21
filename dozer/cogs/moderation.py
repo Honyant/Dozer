@@ -150,6 +150,11 @@ class Moderation(Cog):
             self.bot.loop.create_task(self._check_links_warn(msg, role))
             return True
         return False
+    
+    async def check_talking_showcase(self,msg):
+        """Checks for messages sent in #robot-showcase without attachments or embeds and automatically deletes them."""
+        if msg.channel.id == 771188718198456321 and not msg.attachments and not msg.embeds:
+            await msg.delete()
 
     """=== context-free backend functions ==="""
 
@@ -290,6 +295,9 @@ class Moderation(Cog):
             return
 
         if await self.check_links(message):
+            return
+
+        if await self.check_talking_showcase(message):
             return
 
         config: GuildConfig = await self.guild_config.query_one(guild_id=message.guild.id)
