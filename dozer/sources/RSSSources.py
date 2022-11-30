@@ -175,6 +175,15 @@ class CDLatest(RSSSource):
     description = "The newest, spiciest posts from the largest unofficial FRC forum"
     color = discord.colour.Color.orange()
 
+class FTCCommunity(RSSSource):
+    """The official FIRST Tech Challenge Technical Community"""
+    url = "https://ftc-community.firstinspires.org/latest.rss"
+    base_url = "https://www.ftc-community.firstinspires.org/latest"
+    full_name = "FTC Community"
+    short_name = "ftc-community"
+    description = "The official FIRST Tech Challenge Technical Community"
+    color = discord.colour.Color.orange()
+
 
 class FRCQA(RSSSource):
     """Answers from the official FIRST Robotics Competition Q&A system"""
